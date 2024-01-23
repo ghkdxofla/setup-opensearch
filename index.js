@@ -97,6 +97,7 @@ function download() {
     // fix for: cross-device link not permitted
     run('mv', `opensearch-${opensearchVersion}`, opensearchHome)
   } else {
+    // fix for: cross-device link not permitted
     moveFileSync(`opensearch-${opensearchVersion}`, opensearchHome);
   }
 }
