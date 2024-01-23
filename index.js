@@ -97,7 +97,7 @@ function download() {
     // fix for: cross-device link not permitted
     run('mv', `opensearch-${opensearchVersion}`, opensearchHome)
   } else {
-    fs.renameSync(`opensearch-${opensearchVersion}`, opensearchHome);
+    moveFileSync(`opensearch-${opensearchVersion}`, opensearchHome);
   }
 }
 
@@ -178,6 +178,17 @@ function waitForReady() {
     }
     spawnSync('sleep', ['1']);
   }
+}
+
+function moveFileSync(source, target) {
+  const targetFolder = path.dirname(target);
+
+  if (!fs.existsSync(targetFolder)) {
+      fs.mkdirSync(targetFolder, { recursive: true });
+  }
+
+  fs.copyFileSync(source, target);
+  fs.unlinkSync(source);
 }
 
 const opensearchVersion = getVersion();
